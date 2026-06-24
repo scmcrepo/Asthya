@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="12" fill="#080808"/>
+  <!-- Letter A -->
+  <path d="M32 12L14 52h8l3.5-8h13l3.5 8h8L32 12zm-4.5 26L32 26l4.5 12h-9z" fill="#ffffff"/>
+  <!-- Medical cross -->
+  <rect x="42" y="14" width="4" height="14" rx="1" fill="#C8FF00"/>
+  <rect x="38" y="18" width="12" height="4" rx="1" fill="#C8FF00"/>
+</svg>

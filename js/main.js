@@ -16,11 +16,20 @@
   const stars = Array.from({length:90}, ()=>({
     x: Math.random(), y: Math.random(),
     r: Math.random()*.9+.2, o: Math.random()*.4+.05,
-    s: Math.random()*.0008+.0003
+    s: Math.random()*.0008+.0003,
+    vx: (Math.random() - .5) * .00005,
+    vy: (Math.random() - .5) * .00005
   }));
   function draw(){
     ctx.clearRect(0, 0, w, h);
     stars.forEach(s=>{
+      s.x += s.vx;
+      s.y += s.vy;
+      if(s.x < 0) s.x = 1;
+      if(s.x > 1) s.x = 0;
+      if(s.y < 0) s.y = 1;
+      if(s.y > 1) s.y = 0;
+
       s.o += (Math.random()-.5)*.04;
       s.o = Math.max(.03, Math.min(.55, s.o));
       ctx.beginPath();
@@ -44,14 +53,6 @@ bldIds.forEach((id,i)=>{
   }, 1000 + i*220);
 });
 
-// Pulse dots breathe
-setInterval(()=>{
-  document.querySelectorAll('.pulse-dot').forEach(d=>{
-    const cur = parseFloat(d.getAttribute('r'));
-    d.setAttribute('r', cur > 4 ? 3.5 : 4.5);
-  });
-}, 1200);
-
 // Window lights flicker subtly
 const wins = document.querySelectorAll('.win');
 setInterval(()=>{
@@ -63,35 +64,78 @@ setInterval(()=>{
   });
 }, 600);
 
-// ── PROOF COUNTERS ─────────────────────────────────────
+// ── PROOF & STATS COUNTERS ─────────────────────────────
 function counter(el){
+  if (el.rafId) {
+    cancelAnimationFrame(el.rafId);
+  }
   const t=parseInt(el.dataset.count), s=el.dataset.suf||'', d=1500, t0=performance.now();
   (function step(now){
     const p=Math.min((now-t0)/d,1), e=1-Math.pow(1-p,3);
     el.textContent=Math.round(e*t)+s;
-    if(p<1) requestAnimationFrame(step);
+    if(p<1) {
+      el.rafId = requestAnimationFrame(step);
+    } else {
+      delete el.rafId;
+    }
   })(t0);
 }
-let fired=false;
-new IntersectionObserver(es=>{
-  if(es[0].isIntersecting&&!fired){ fired=true; document.querySelectorAll('[data-count]').forEach(counter); }
-},{threshold:.3}).observe(document.querySelector('.proof'));
+const countObs = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      counter(entry.target);
+    } else {
+      if (entry.target.rafId) {
+        cancelAnimationFrame(entry.target.rafId);
+        delete entry.target.rafId;
+      }
+      entry.target.textContent = '0' + (entry.target.dataset.suf || '');
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
 
 // ── MODULE SWITCHER ────────────────────────────────────
-document.getElementById('mNav').addEventListener('click', e=>{
-  const b = e.target.closest('.mod-btn'); if(!b) return;
-  const id = b.dataset.m;
+function switchModule(id){
   document.querySelectorAll('.mod-btn').forEach(x=>{
-    const on = x.dataset.m===id;
+    const on = x.dataset.m == id;
     x.classList.toggle('on', on);
     x.setAttribute('aria-selected', on ? 'true' : 'false');
   });
-  document.querySelectorAll('.mod-panel').forEach(x=>x.classList.toggle('on',x.dataset.p===id));
+  document.querySelectorAll('.mod-panel').forEach(x=>x.classList.toggle('on', x.dataset.p == id));
+}
+document.getElementById('mNav').addEventListener('click', e=>{
+  const b = e.target.closest('.mod-btn'); if(!b) return;
+  switchModule(b.dataset.m);
+});
+
+// ── HERO SVG BUILDING CLICKS ───────────────────────────
+const buildingMapping = {
+  'bldA': 0, // OPD Management
+  'bldB': 1, // In-Patient
+  'bldC': 5, // Pharmacy
+  'bldD': 4, // Diagnostics
+  'bldE': 7  // Analytics
+};
+Object.keys(buildingMapping).forEach(bldId=>{
+  const el = document.getElementById(bldId);
+  if(el){
+    el.addEventListener('click',()=>{
+      switchModule(buildingMapping[bldId]);
+      document.getElementById('platform').scrollIntoView({behavior:'smooth'});
+    });
+  }
 });
 
 // ── SCROLL REVEAL ──────────────────────────────────────
 const ro = new IntersectionObserver(es=>{
-  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); } });
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+    } else {
+      e.target.classList.remove('in');
+    }
+  });
 },{threshold:.1});
 document.querySelectorAll('.r').forEach(el=>ro.observe(el));
 
@@ -108,9 +152,11 @@ window.addEventListener('scroll',()=>{
 const ham=document.getElementById('ham'), nl=document.getElementById('nl');
 ham.addEventListener('click',()=>{
   const open = nl.classList.toggle('open');
+  ham.classList.toggle('open', open);
   ham.setAttribute('aria-expanded', open ? 'true' : 'false');
 });
 nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
   nl.classList.remove('open');
+  ham.classList.remove('open');
   ham.setAttribute('aria-expanded', 'false');
 }));

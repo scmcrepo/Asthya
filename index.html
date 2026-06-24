@@ -25,10 +25,8 @@
     content="Unified OPD, inpatient, pharmacy, diagnostics, and analytics on a single data layer. Live in 100+ hospitals with zero failed implementations.">
   <meta property="twitter:image" content="assets/images/favicon.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,300&display=swap"
-    rel="stylesheet">
+  <!-- Local fonts for offline support -->
+  <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -36,7 +34,7 @@
 
   <!-- NAV -->
   <nav id="nav">
-    <a href="#hero" class="nav-brand"><img src="assets/images/favicon.png" alt="Asthya Logo" class="nav-logo">ASTHYA</a>
+    <a href="#hero" class="nav-brand"><img src="assets/images/logo.svg" alt="Asthya Logo" class="nav-logo">ASTHYA</a>
     <ul class="nav-links" id="nl">
       <li><a href="#platform">Modules</a></li>
       <li><a href="#architecture">Architecture</a></li>
@@ -89,6 +87,7 @@
 
         <!-- Block A: OPD (left-centre, tallest) -->
         <g id="bldA" opacity="0">
+          <title>Click to explore OPD Management</title>
           <!-- right face -->
           <polygon points="240,260 240,130 300,165 300,295" fill="#181818" />
           <!-- left face -->
@@ -114,6 +113,7 @@
 
         <!-- Block B: In-Patient Ward (centre) -->
         <g id="bldB" opacity="0">
+          <title>Click to explore In-Patient Management</title>
           <polygon points="320,250 320,140 400,178 400,288" fill="#161616" />
           <polygon points="240,215 240,105 320,140 320,250" fill="#1c1c1c" />
           <polygon points="240,105 320,140 400,178 320,143 240,108" fill="#252525" />
@@ -136,6 +136,7 @@
 
         <!-- Block C: Pharmacy (right, shorter) -->
         <g id="bldC" opacity="0">
+          <title>Click to explore Pharmacy Module</title>
           <polygon points="520,248 520,170 570,195 570,273" fill="#181818" />
           <polygon points="420,215 420,137 520,170 520,248" fill="#1e1e1e" />
           <polygon points="420,137 520,170 570,195 470,162" fill="#272727" />
@@ -152,6 +153,7 @@
 
         <!-- Block D: Diagnostics/Lab (far right, smallest) -->
         <g id="bldD" opacity="0">
+          <title>Click to explore Diagnostics Module</title>
           <polygon points="660,238 660,178 700,198 700,258" fill="#161616" />
           <polygon points="580,208 580,148 660,178 660,238" fill="#1c1c1c" />
           <polygon points="580,148 660,178 700,198 620,168" fill="#252525" />
@@ -167,6 +169,7 @@
 
         <!-- Block E: Admin/Analytics (back, small) -->
         <g id="bldE" opacity="0">
+          <title>Click to explore Analytics Module</title>
           <polygon points="390,140 390,80 430,100 430,160" fill="#141414" />
           <polygon points="320,115 320,55 390,80 390,140" fill="#1a1a1a" />
           <polygon points="320,55 390,80 430,100 360,75" fill="#222" />
@@ -227,11 +230,6 @@
         <ellipse cx="638" cy="244" rx="50" ry="8" fill="rgba(251,146,60,.03)" />
       </svg>
     </div>
-
-    <div class="scroll-hint">
-      <div class="sh-line"></div>
-      <span class="sh-txt">Scroll</span>
-    </div>
   </section>
 
   <!-- PROOF STRIP -->
@@ -259,7 +257,7 @@
           <h2 class="h2 r r1">Eight modules.<br>One data layer.</h2>
         </div>
         <p class="body r r2">Every department shares the same patient record. What changes in OPD is instantly visible
-          in pharmacy, billing, and analytics — no middleware, no sync delays.</p>
+          in pharmacy, billing and analytics — no middleware, no sync delays.</p>
       </div>
       <div class="mod-shell r r1">
         <div class="mod-nav" id="mNav" role="tablist" aria-label="Asthya HIMS Modules">
@@ -658,7 +656,7 @@
       <p class="cta-sub">Request a free live demo — our team walks you through everything.</p>
       <div class="cta-card">
         <div class="cta-cl">Call us directly</div>
-        <div class="cta-ph">+91 99401 22555</div>
+        <div class="cta-ph">+91 72009 29777</div>
       </div>
       <div class="cta-foot">Hospital Information Management System · Established 2014 · India · UAE · United States
       </div>

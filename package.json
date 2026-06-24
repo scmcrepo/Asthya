@@ -1,25 +1,13 @@
 {
   "name": "asthya-website",
   "version": "1.0.0",
-  "description": "Production-level HIMS Asthya website",
+  "description": "HIMS Asthya website",
   "main": "index.html",
   "scripts": {
-    "clean": "rm -rf dist",
-    "prebuild": "npm run clean && mkdir -p dist/css dist/js dist/assets/images",
-    "build:css": "cleancss -o dist/css/style.css css/style.css",
-    "build:js": "terser js/main.js -o dist/js/main.js --compress --mangle",
-    "build:html": "html-minifier-terser --collapse-whitespace --remove-comments --minify-css true --minify-js true -o dist/index.html index.html",
-    "build:assets": "cp -r assets/* dist/assets/",
-    "build": "npm run build:css && npm run build:js && npm run build:html && npm run build:assets",
-    "start": "npx -y http-server dist -p 3000",
+    "start": "npx -y http-server . -p 3000",
     "dev": "npx -y http-server . -p 3000"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "clean-css-cli": "^5.6.3",
-    "html-minifier-terser": "^7.2.0",
-    "terser": "^5.31.1"
-  }
+  "license": "ISC"
 }
