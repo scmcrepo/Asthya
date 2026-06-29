@@ -283,7 +283,8 @@ button,a{font-family:inherit}
 .cta-cl{font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.5);text-transform:uppercase}
 .cta-ph{font-size:20px;font-weight:600;color:#fff;letter-spacing:-.01em}
 .cta-foot{margin-top:88px;padding-top:26px;border-top:1px solid var(--ink3);
-  font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.05em}
+  font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.05em;line-height:1.8}
+.cta-foot-brand{color:var(--white);font-size:17px}
 
 /* ── RESPONSIVE ──────────────────────────────── */
 @media(max-width:1024px){
