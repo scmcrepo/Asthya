@@ -4,8 +4,8 @@
   "description": "HIMS Asthya website",
   "main": "index.html",
   "scripts": {
-    "start": "npx -y http-server . -p 3000",
-    "dev": "npx -y http-server . -p 3000"
+    "start": "npx -y http-server . -p 3100",
+    "dev": "npx -y http-server . -p 3100"
   },
   "keywords": [],
   "author": "",
